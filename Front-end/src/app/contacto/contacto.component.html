@@ -1,0 +1,271 @@
+<body>
+  <div style="text-align: center">
+    <h1>{{ title }}</h1>
+    <img width="300" alt="Logo Proyecto" src="/assets/zindexlogo.jpg" />
+  </div>
+
+  <br /><br />
+
+  <div class="dir">
+    <h3><a routerLink="/Inicio">Inicio</a></h3>
+  </div>
+
+  <br /><br />
+
+  <div class="listaContacto">
+    <h2>Todas los Contactos</h2>
+
+    <form (ngSubmit)="consultaContactosTotales(true)" [formGroup]="ListarContacTotales">
+      <button type="submit" style="margin-right: 30px">
+        Listar todos los Contactos
+      </button>
+      <button (click)="LimpiarLista(false)" style="scroll-margin-left: 30px">
+        Limpiar todos los Contactos
+      </button>
+
+      <br /><br />
+
+      <div *ngIf="flag">
+        <h2>{{ tituloContactoUniLista }}</h2>
+
+        <table>
+          <thead>
+            <th>{{ tablacontactostotales[0] }}</th>
+            <th>{{ tablacontactostotales[1] }}</th>
+            <th>{{ tablacontactostotales[2] }}</th>
+            <th>{{ tablacontactostotales[3] }}</th>
+            <th>{{ tablacontactostotales[4] }}</th>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let pacu of ContactoUniT">
+              <th>{{ pacu.id_contacto }}</th>
+              <th>{{ pacu.Tipo_Contacto }}</th>
+              <th>{{ pacu.contacto }}</th>
+              <th>{{ pacu.Nombre_Paciente }}</th>
+              <th>{{ pacu.Nombre_Doctor }}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+
+  <br /><br />
+
+  <div class="listaContactoID">
+    <h2>Contactos Por ID</h2>
+    <form (ngSubmit)="consultaContactosID(CBContactoID.value.PerIDfiltro)" [formGroup]="CBContactoID">
+      <button type="submit" style="margin-right: 30px">
+        ID Contacto
+        <select name="CPerIDfiltro" id="CPerIDfiltro" formControlName="PerIDfiltro"
+          (click)="consultaContactosTotales(false)">
+          <option value="value1">Contactos</option>
+          <option *ngFor="let pae of ContactoUniT" [value]="pae.id_contacto">
+            {{ pae.Nombre_Doctor }} {{ pae.Nombre_Paciente }} -
+            {{ pae.contacto }}
+          </option>
+        </select>
+      </button>
+
+      <br /><br />
+
+      <h2>{{ tituloContactoUniListaID }}</h2>
+
+      <table>
+        <thead>
+          <th>{{ tablacontactostotalesID[0] }}</th>
+          <th>{{ tablacontactostotalesID[1] }}</th>
+          <th>{{ tablacontactostotalesID[2] }}</th>
+          <th>{{ tablacontactostotalesID[3] }}</th>
+          <th>{{ tablacontactostotalesID[4] }}</th>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let pacudoc of ContactoUniTID">
+            <th>{{ pacudoc.id_contacto }}</th>
+            <th>{{ pacudoc.Tipo_Contacto }}</th>
+            <th>{{ pacudoc.contacto }}</th>
+            <th>{{ pacudoc.Nombre_Paciente }}</th>
+            <th>{{ pacudoc.Nombre_Doctor }}</th>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+
+  <br /><br />
+
+  <div class="listaContactoTip">
+    <h2>Tipo de Contacto</h2>
+    <form (ngSubmit)="consultaContactosTip(CBContactoTip.value.PerTipfiltro)" [formGroup]="CBContactoTip">
+      <button type="submit" style="margin-right: 30px">
+        Tipo de Contacto
+        <select class="dropdown" style="width: 150px" formControlName="PerTipfiltro">
+          <option value="12">Celular</option>
+          <option value="13">Telefono</option>
+          <option value="14">E-mail</option>
+        </select>
+      </button>
+
+      <button (click)="LimpiarTablaTip()">
+        Limpiar Tabla de Tipos de Contacto
+      </button>
+
+      <br /><br />
+
+      <h2>{{ tituloContactoUniListaTip }}</h2>
+
+      <table>
+        <thead>
+          <th>{{ tablacontactostotalesTip[0] }}</th>
+          <th>{{ tablacontactostotalesTip[1] }}</th>
+          <th>{{ tablacontactostotalesTip[2] }}</th>
+          <th>{{ tablacontactostotalesTip[3] }}</th>
+          <th>{{ tablacontactostotalesTip[4] }}</th>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let citauest of ContactoUniTip">
+            <th>{{ citauest.id_contacto }}</th>
+            <th>{{ citauest.Tipo_Contacto }}</th>
+            <th>{{ citauest.contacto }}</th>
+            <th>{{ citauest.Nombre_Paciente }}</th>
+            <th>{{ citauest.Nombre_Doctor }}</th>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+
+  <br /><br />
+
+  <div class="formuCrear">
+    <button (click)="mostrarForm()">Crear Contacto</button>
+    <button (click)="ocultarForm()">Ocultar Formulario</button>
+  </div>
+
+  <div class="creaPer" *ngIf="mostrarFormulario">
+    <h2>Registrar un Nuevo Contacto</h2>
+
+    <form (ngSubmit)="InsertContacto()" [formGroup]="CrearContactoU">
+      <!-- Los otros controles para la captura de los datos del Catalogo -->
+
+      <span class="spn_lbl">Tipo de Documento : </span>
+      <label for="texttipocontacto">
+        <select name="Ctexttipocontacto" id="Ctexttipocontacto" formControlName="texttipocontacto"
+          (click)="consultaCatalogoContactosTotales()">
+          <option value="value1">Tipo de Contactos</option>
+          <option *ngFor="let paeuc of CataContactoUniT" [value]="paeuc.id_catalogo_universal">
+            {{ paeuc.nom_catalogo }}
+          </option>
+        </select>
+      </label>
+
+      <br /><br />
+      <span class="spn_label">Contacto: </span>
+      <label for="textcontacto">
+        <input type="text" name="Ctextcontacto" id="Ctextcontacto" formControlName="textcontacto" />
+      </label>
+
+      <br /><br />
+      <span class="spn_lbl">Paciente : </span>
+      <label for="textidpaciente">
+        <select name="Ctextidpaciente" id="Ctextidpaciente" formControlName="textidpaciente"
+          (click)="consultaPacientesTotales()">
+          <option value="value1">Pacientes</option>
+          <option *ngFor="let paese of PaciUniT" [value]="paese.id_paciente">
+            {{ paese.nombre_pac }}
+          </option>
+        </select>
+      </label>
+
+      <br /><br />
+      <span class="spn_lbl">Doctor : </span>
+      <label for="textiddoctor">
+        <select name="Ctextiddoctor" id="Ctextiddoctor" formControlName="textiddoctor"
+          (click)="consultaDoctoresTotales()">
+          <option value="value1">Doctores</option>
+          <option *ngFor="let paese of DoctUniT" [value]="paese.id_doctor">
+            {{ paese.nom_doc }}
+          </option>
+        </select>
+      </label>
+
+      <br /><br />
+
+      <button type="submit">Nueva Contacto</button>
+      <br /><br />
+    </form>
+  </div>
+
+  <div class="editContacto">
+    <h2>Modificar una Contacto</h2>
+    <form (ngSubmit)="SelContactoEditar()" [formGroup]="ActContactoU">
+      <span class="spn_lbl">Contacto a Editar</span>
+      <label>
+        <select class="dropdown2" formControlName="CBContactoEdi" (click)="consultaContactosTotales(false)">
+          <option value="value1">Contactos</option>
+          <option *ngFor="let paese of ContactoUniT" [value]="paese.id_contacto">
+            {{ paese.Nombre_Doctor }} {{ paese.Nombre_Paciente }} -
+            {{ paese.contacto }}
+          </option>
+        </select>
+      </label>
+      <button type="submit" (click)="obtenerContactoSeleccionado(1)">
+        Buscar Contacto a Editar
+      </button>
+
+      <h2>{{ titloContactoUniEditar }}</h2>
+
+      <span class="spn_lbl">Tipo de Contacto : </span>
+      <label for="texttipocontactoEdi">
+        <select name="CtexttipocontactoEdi" id="CtexttipocontactoEdi" formControlName="texttipocontactoEdi"
+          (click)="consultaCatalogoContactosTotales()">
+          <option value="value1">Tipo de Contactos</option>
+          <option *ngFor="let paeuc of CataContactoUniT" [value]="paeuc.id_catalogo_universal">
+            {{ paeuc.nom_catalogo }}
+          </option>
+        </select>
+      </label>
+      <br /><br />
+
+      <li *ngFor="let pae of ContactoUniEdi">
+        <span class="spn_lbl">Contacto: </span>
+        <label for="Ctextcontacto"><input type="text" name="Ctextcontacto" id="Ctextcontacto" value="{{ pae.contacto }}"
+            [(ngModel)]="pae.contacto" [value]="pae.contacto" formControlName="textcontactoEdi" /></label>
+        <br /><br />
+
+        <span class="spn_lbl">Paciente: </span>
+        <label for="textidpaciente">
+          <select name="Ctextidpaciente" id="Ctextidpaciente" formControlName="textidpacienteEdi"
+            (click)="consultaPacientesTotales()">
+            <option value="value1">Pacientes</option>
+            <option *ngFor="let pae of PaciUniT" [value]="pae.id_paciente">
+              {{ pae.nombre_pac }}
+            </option>
+          </select>
+        </label>
+        <br /><br />
+
+        <span class="spn_lbl">Doctor: </span>
+        <label for="textiddoctor">
+          <select name="Ctextiddoctor" id="Ctextiddoctor" formControlName="textiddoctorEdi"
+            (click)="consultaDoctoresTotales()">
+            <option value="value1">Doctores</option>
+            <option *ngFor="let paese of DoctUniT" [value]="paese.id_doctor">
+              {{ paese.nom_doc }}
+            </option>
+          </select>
+        </label>
+        <br /><br />
+
+        <button (click)="ActualizarContacto()">Actualizar Registro</button>
+
+        <br /><br />
+      </li>
+    </form>
+  </div>
+
+  <br /><br />
+</body>

@@ -1,0 +1,369 @@
+<body>
+  <div style="text-align: center">
+    <h1>{{ title }}</h1>
+    <img width="300" alt="Logo Proyecto" src="/assets/zindexlogo.jpg" />
+  </div>
+
+  <br /><br />
+
+  <div class="dir">
+    <h3><a routerLink="/Inicio">Inicio</a></h3>
+  </div>
+
+  <br /><br />
+
+  <div class="listaCita">
+    <h2>Todas las Citas</h2>
+
+    <form (ngSubmit)="consultaCitasTotales(true)" [formGroup]="ListarCitasTotales">
+      <button type="submit" style="margin-right: 30px">
+        Listar todas las Citas
+      </button>
+      <button (click)="LimpiarLista(false)" style="scroll-margin-left: 30px">
+        Limpiar todos las Citas
+      </button>
+
+      <br /><br />
+
+      <div *ngIf="flag">
+        <h2>{{ tituloCitaUniLista }}</h2>
+
+        <table>
+          <thead>
+            <th>{{ tablacitastotales[0] }}</th>
+            <th>{{ tablacitastotales[1] }}</th>
+            <th>{{ tablacitastotales[2] }}</th>
+            <th>{{ tablacitastotales[3] }}</th>
+            <th>{{ tablacitastotales[4] }}</th>
+            <th>{{ tablacitastotales[5] }}</th>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let pacu of CitaUniT">
+              <th>{{ pacu.id_cita }}</th>
+              <th>{{ pacu.fecha_cita }}</th>
+              <th>{{ pacu.Estado_cita }}</th>
+              <th>{{ pacu.Nombre_Doctor }}</th>
+              <th>{{ pacu.Nombre_Paciente }}</th>
+              <th>{{ pacu.comen_cita }}</th>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+  <br /><br />
+
+  <div class="listaCitaID">
+    <h2>Citas Por ID</h2>
+    <form (ngSubmit)="consultaCitasID(CBCitaID.value.PerIDfiltro)" [formGroup]="CBCitaID">
+      <button type="submit" style="margin-right: 30px">
+        ID Cita
+        <select name="CPerIDfiltro" id="CPerIDfiltro" formControlName="PerIDfiltro"
+          (click)="consultaCitasTotales(false)">
+          <option value="value1">Citas</option>
+          <option *ngFor="let pae of CitaUniT" [value]="pae.id_cita">
+            {{ pae.id_cita }} - {{ pae.Nombre_Paciente }} -
+            {{ pae.fecha_cita }}
+          </option>
+        </select>
+      </button>
+
+      <br /><br />
+
+      <h2>{{ tituloCitaUniListaID }}</h2>
+
+      <table>
+        <thead>
+          <th>{{ tablacitastotalesID[0] }}</th>
+          <th>{{ tablacitastotalesID[1] }}</th>
+          <th>{{ tablacitastotalesID[2] }}</th>
+          <th>{{ tablacitastotalesID[3] }}</th>
+          <th>{{ tablacitastotalesID[4] }}</th>
+          <th>{{ tablacitastotalesID[5] }}</th>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let pacudoc of CitaUniTID">
+            <th>{{ pacudoc.id_cita }}</th>
+            <th>{{ pacudoc.fecha_cita }}</th>
+            <th>{{ pacudoc.Estado_cita }}</th>
+            <th>{{ pacudoc.Nombre_Doctor }}</th>
+            <th>{{ pacudoc.Nombre_Paciente }}</th>
+            <th>{{ pacudoc.comen_cita }}</th>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+
+  <br /><br />
+  <div class="listaCitaEst">
+    <h2>Cita Tipo de Estado</h2>
+    <form (ngSubmit)="consultaCitasEst(CBCitaEst.value.PerEstfiltro)" [formGroup]="CBCitaEst">
+      <button type="submit" style="margin-right: 30px">
+        Tipo de Estado
+        <select class="dropdown" style="width: 150px" formControlName="PerEstfiltro">
+          <option value="38">Asignado</option>
+          <option value="39">Cancelado</option>
+          <option value="40">Finalizado</option>
+        </select>
+      </button>
+
+      <button (click)="LimpiarTablaEst()">Limpiar Tabla de Estado</button>
+
+      <br /><br />
+
+      <h2>{{ tituloCitaUniListaEst }}</h2>
+
+      <table>
+        <thead>
+          <th>{{ tablacitastotalesEst[0] }}</th>
+          <th>{{ tablacitastotalesEst[1] }}</th>
+          <th>{{ tablacitastotalesEst[2] }}</th>
+          <th>{{ tablacitastotalesEst[3] }}</th>
+          <th>{{ tablacitastotalesEst[4] }}</th>
+          <th>{{ tablacitastotalesEst[5] }}</th>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let citauest of CitaUniEst">
+            <th>{{ citauest.id_cita }}</th>
+            <th>{{ citauest.fecha_cita }}</th>
+            <th>{{ citauest.tipo_estado }}</th>
+            <th>{{ citauest.Nombre_Doctor }}</th>
+            <th>{{ citauest.Nombre_Paciente }}</th>
+            <th>{{ citauest.comen_cita }}</th>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+
+  <br /><br />
+
+  <div class="formuCrear">
+    <button (click)="mostrarForm()">Crear Cita</button>
+    <button (click)="ocultarForm()">Ocultar Formulario</button>
+  </div>
+
+  <div class="creaPer" *ngIf="mostrarFormulario">
+    <h2>Registrar una Nueva Cita</h2>
+
+    <form (ngSubmit)="insertCita()" [formGroup]="CrearCitaU">
+      <!-- Los otros controles para la captura de los datos del Catalogo -->
+      <span class="spn_lbl">Fecha Cita : </span>
+      <label for="textfecha">
+        <input type="datetime-local" name="Ctextfecha" id="Ctextfecha" formControlName="textfecha" />
+      </label>
+
+      <br /><br />
+      <span class="spn_lbl">Tipo de Estado de la Cita : </span>
+      <label for="texttipoestado">
+        <select name="Ctexttipoestado" id="Ctexttipoestado" formControlName="texttipoestado">
+          <option value="38">Asignada</option>
+          <option value="39">Cancelada</option>
+          <option value="40">Finalizada</option>
+        </select>
+      </label>
+
+      <br /><br />
+      <span class="spn_lbl">Doctor : </span>
+      <label for="textiddoctor">
+        <select name="Ctextiddoctor" id="Ctextiddoctor" formControlName="textiddoctor"
+          (click)="consultaDoctoresTotales()">
+          <option value="value1">Doctores</option>
+          <option *ngFor="let paese of DoctUniT" [value]="paese.id_doctor">
+            {{ paese.nom_doc }}
+          </option>
+        </select>
+      </label>
+
+      <br /><br />
+      <span class="spn_lbl">Paciente : </span>
+      <label for="textidpaciente">
+        <select name="Ctextidpaciente" id="Ctextidpaciente" formControlName="textidpaciente"
+          (click)="consultaPacientesTotales()">
+          <option value="value1">Pacientes</option>
+          <option *ngFor="let paese of PaciUniT" [value]="paese.id_paciente">
+            {{ paese.nombre_pac }}
+          </option>
+        </select>
+      </label>
+
+      <br /><br />
+      <span class="spn_lbl">Comentario de la Cita Cita : </span>
+      <label for="textcomen">
+        <input type="text" name="Ctextcomen" id="Ctextcomen" formControlName="textcomen" />
+      </label>
+
+      <br /><br />
+
+      <button type="submit">Nueva Cita</button>
+      <br /><br />
+    </form>
+  </div>
+  <br /><br />
+
+  <!-- para Actualizar un Paciente -->
+
+  <div class="editCita">
+    <h2>Modificar una Cita</h2>
+    <form (ngSubmit)="SelCitaEditar()" [formGroup]="ActCitaU">
+      <span class="spn_lbl">Cita a Editar</span>
+      <label>
+        <select class="dropdown2" formControlName="CBCitaEdi" (click)="consultaCitasTotales(false)">
+          <option value="value1">Citas</option>
+          <option *ngFor="let paese of CitaUniT" [value]="paese.id_cita">
+            {{ paese.id_cita }} - {{ paese.Nombre_Paciente }} -
+            {{ paese.fecha_cita }}
+          </option>
+        </select>
+      </label>
+      <button type="submit" (click)="obtenerCitaSeleccionado(1)">
+        Buscar Cita a Editar
+      </button>
+
+      <h2>{{ titloCitaUniEditar }}</h2>
+
+      <li *ngFor="let pae of CitaUniEdi">
+        <span class="spn_lbl">Fecha de la Cita</span>
+        <label for="CtextfechaEdi">
+          <input type="datetime-local" name="CtextfechaEdi" id="CtextfechaEdi" value="{{ pae.fecha_cita }}"
+            [(ngModel)]="pae.fecha_cita" [value]="pae.fecha_cita" formControlName="textfechaEdi" /></label>
+        <br /><br />
+
+        <span class="spn_lbl">Tipo de Estado de la Cita : </span>
+        <label for="CtexttipoestadoEdi">
+          <select type="text" name="Ctexttipoestado" id="Ctexttipoestado" formControlName="texttipoestadoEdi">
+            <option value="38">Asignada</option>
+            <option value="39">Cancelada</option>
+            <option value="40">Finalizada</option>
+          </select>
+        </label>
+        <br /><br />
+
+        <span class="spn_lbl">Doctor : </span>
+        <label for="textiddoctor">
+          <select name="Ctextiddoctor" id="Ctextiddoctor" formControlName="textiddoctorEdi"
+            (click)="consultaDoctoresTotales()">
+            <option value="value1">Doctores</option>
+            <option *ngFor="let paese of DoctUniT" [value]="paese.id_doctor">
+              {{ paese.nom_doc }}
+            </option>
+          </select>
+        </label>
+        <br /><br />
+
+        <span class="spn_lbl">Paciente : </span>
+        <label for="textidpaciente">
+          <select name="Ctextidpaciente" id="Ctextidpaciente" formControlName="textidpacienteEdi"
+            (click)="consultaPacientesTotales()">
+            <option value="value1">Pacientes</option>
+            <option *ngFor="let pae of PaciUniT" [value]="pae.id_paciente">
+              {{ pae.nombre_pac }}
+            </option>
+          </select>
+        </label>
+
+        <br /><br />
+
+        <span class="spn_lbl">Comentario</span>
+        <label for="Ctextcomen"><input type="text" name="Ctextcomen" id="Ctextcomen" value="{{ pae.comen_cita }}"
+            [(ngModel)]="pae.comen_cita" [value]="pae.comen_cita" formControlName="textcomenEdi" /></label>
+        <br /><br />
+
+        <button (click)="ActualizarCita()">Actualizar Registro</button>
+
+        <br /><br />
+      </li>
+    </form>
+  </div>
+
+  <div class="dir">
+    <h2>Mostramos el informe por calificacion</h2>
+
+    <h3>Datos para el informe por calificacion</h3>
+
+    <form (ngSubmit)='informeCalificacion()' [formGroup]="InformeCalificacionG">
+      <h3>Calificacion para filtrar</h3>
+      <input type="number" formControlName="textCalifacion" min="1" max="5">
+      <h3>Fecha Inicial para el informe</h3>
+      <input type="date" formControlName="textFechaIn">
+      <h3>Fecha limite para los informes</h3>
+      <input type="date" formControlName="textFechaFin">
+      <br><br>
+      <button type="submit">Generar informe por calificacion</button>
+    </form>
+
+    <h2>
+      {{ tituloInfoCalificacion }}
+    </h2>
+
+    <table>
+      <thead>
+        <th>{{ tablaInformeCal[0] }}</th>
+        <th>{{ tablaInformeCal[1] }}</th>
+        <th>{{ tablaInformeCal[2] }}</th>
+        <th>{{ tablaInformeCal[3] }}</th>
+        <th>{{ tablaInformeCal[4] }}</th>
+        <th>{{ tablaInformeCal[5] }}</th>
+      </thead>
+      <tbody class=".listaCitaEst">
+        <tr *ngFor="let inCal of InfoCalificacion">
+          <th>{{inCal.NOMBRE_DEL_DOCTOR}}</th>
+          <th>{{inCal.CALIFICACION_DE_LA_CITA}}</th>
+          <th>{{inCal.COMENTARIO}}</th>
+          <th>{{inCal.ESTADO_DE_LA_CITA}}</th>
+          <th>{{inCal.FECHA_DE_LA_CITA}}</th>
+          <th>{{inCal.ESPECIALIDAD_DEL_DOCTOR}}</th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="dir">
+    <h2>Mostramos Informe por especialidad y estado de la cita</h2>
+
+    <h3>Datos para el informe por especialidad y estado de la cita</h3>
+
+    <form (ngSubmit)="informeEsPeCita()" [formGroup]="InformeCalificacionE">
+      <h3>Especialidad para filtrar</h3>
+      <input type="number" formControlName="textEspecialidad" min="18" max="34">
+      <h3>Estado de la cita para filtrar</h3>
+      <input type="number" formControlName="textEstado" min="38" max="40">
+      <h3>Fecha Inicial para el informe</h3>
+      <input type="date" formControlName="textFechaIn">
+      <h3>Fecha limite para los informes</h3>
+      <input type="date" formControlName="textFechaFin">
+      <br><br>
+      <button type="submit">Generar informe por calificacion</button>
+    </form>
+
+    <h2>
+      {{ tituloInfoEspe }}
+    </h2>
+
+    <table>
+      <thead>
+        <th>{{ tablaInfoEspe[0] }}</th>
+        <th>{{ tablaInfoEspe[1] }}</th>
+        <th>{{ tablaInfoEspe[2] }}</th>
+        <th>{{ tablaInfoEspe[3] }}</th>
+        <th>{{ tablaInfoEspe[4] }}</th>
+        <th>{{ tablaInfoEspe[5] }}</th>
+      </thead>
+      <tbody class=".listaCitaEst">
+        <tr *ngFor="let inCal of InfoEsPe">
+          <th>{{inCal.Id_Calificacion}}</th>
+          <th>{{inCal.Numero_de_Calificacion}}</th>
+          <th>{{inCal.Comentarios}}</th>
+          <th>{{inCal.Especialidad}}</th>
+          <th>{{inCal.Estado_de_la_Cita}}</th>
+          <th>{{inCal.Nombre_del_Doctor}}</th>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</body>

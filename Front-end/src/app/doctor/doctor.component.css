@@ -1,0 +1,94 @@
+/* Estilos generales */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff; /* Establece el fondo en blanco */
+    margin: 0;
+    padding: 0;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #3b3d86;
+  }
+  
+  .container-padre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ajusta la altura al 100% del viewport para centrar verticalmente */
+    background-color: #f0f0f0;
+  }
+  
+  /* Estilos de los contenedores */
+
+  .listaDoc,.listaDocEsp,.listaDocID{
+    padding: 20px;
+    text-align: center;
+    border: 3px solid #3b3d86;
+    background-color: #fff;
+    overflow: auto;
+  }
+
+   .formuCrear,.creaDoc,.dir,.editDoc{
+    width: 750px; 
+    margin: 20px auto; 
+    padding: 20px;
+    text-align: center;
+    border: 3px solid #3b3d86;
+    background-color: #fff;
+  }
+  
+  /* Estilos para los enlaces */
+  a {
+    color: #3b3d86;
+    text-decoration: none;
+  }
+  
+  /* Estilos para la tabla */
+  table {
+    width: 100%;
+    border-collapse: separate; /* Utiliza el borde separado para evitar el espacio adicional */
+    font-family: "calibri", Garamond, "Comic Sans";
+    font-weight: lighter;
+    font-size: 15px;
+    text-align: center;
+  }
+  
+  th,
+  td {
+    border: 1px solid #3b3d86;
+    border-bottom: none; /* Elimina el borde inferior en las celdas */
+    padding: 10px;
+    vertical-align: top; /* Alinea el contenido en la parte superior de las celdas */
+    height: 10px; /* Establece una altura más pequeña para las celdas */
+  }
+  
+  thead {
+    background-color: #3b3d86;
+    color: #fff;
+  }
+  
+  /* Establece una altura fija para las celdas del encabezado */
+  th {
+    height: 40px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #e6d6f2; /* Agrega un tono de morado claro a las filas pares */
+  }
+  
+  /* Estilos para los botones */
+ /* Estilos para los botones */
+ button {
+    width: 25%; /* Establece el ancho al 25% del contenedor para que quepan varios botones en una fila */
+    margin: 10px; /* Agrega espacio entre los botones */
+  }
+
+  .contenedor-span {
+    text-align: center; /* Centra el contenido horizontalmente */
+  }
+
+
+
+  
+  

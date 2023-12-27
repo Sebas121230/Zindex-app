@@ -1,0 +1,586 @@
+<body>
+  <div style="text-align: center">
+    <h1>{{ title }}</h1>
+    <img width="300" alt="Logo Proyecto" src="/assets/zindexlogo.jpg" />
+  </div>
+
+  <br /><br />
+
+  <div class="dir">
+    <h3><a routerLink="/Inicio">Inicio</a></h3>
+  </div>
+
+  <br /><br />
+
+  <div class="listaPac">
+    <h2>Todos los Pacientes</h2>
+
+    <form
+      (ngSubmit)="consultaPacientesTotales(true)"
+      [formGroup]="ListarPaciTotales"
+    >
+      <button type="submit" style="margin-right: 30px">
+        Listar todos los Pacientes
+      </button>
+      <button (click)="LimpiarLista(false)" style="scroll-margin-left: 30px">
+        Limpiar todos los Pacientes
+      </button>
+
+      <br /><br />
+      <div *ngIf="flag" >
+      <h2>{{ tituloPaciUniLista }}</h2>
+
+      <table>
+        <thead>
+          <th>{{ tablapacientestotales[0] }}</th>
+          <th>{{ tablapacientestotales[1] }}</th>
+          <th>{{ tablapacientestotales[5] }}</th>
+          <th>{{ tablapacientestotales[6] }}</th>
+          <th>{{ tablapacientestotales[7] }}</th>
+          <th>{{ tablapacientestotales[8] }}</th>
+          <th>{{ tablapacientestotales[9] }}</th>
+          <th>{{ tablapacientestotales[10] }}</th>
+          <th>{{ tablapacientestotales[11] }}</th>
+          <th>{{ tablapacientestotales[12] }}</th>
+          <th>{{ tablapacientestotales[13] }}</th>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let pacu of PaciUniT">
+            <th>{{ pacu.id_paciente }}</th>
+            <th>{{ pacu.nombre_pac }}</th>
+            <th>{{ pacu.nacimiento_pac }}</th>
+            <th>{{ pacu.alergias_pac }}</th>
+            <th>{{ pacu.estatura_pac }}</th>
+            <th>{{ pacu.peso_pac }}</th>
+            <th>{{ pacu.tipo_doc }}</th>
+            <th>{{ pacu.num_doc_pac }}</th>
+            <th>{{ pacu.sexo_pac }}</th>
+            <th>{{ pacu.usuario }}</th>
+            <th>{{ pacu.login_correo_pac }}</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </form>
+  </div>
+  <br /><br />
+
+  <div class="listaPacID">
+    <h2>Pacientes Por ID</h2>
+    <form
+      (ngSubmit)="consultaPacientesID(CBPacienteID.value.PerIDfiltro)"
+      [formGroup]="CBPacienteID"
+    >
+      <button type="submit" style="margin-right: 30px">
+        ID Paciente
+        <select
+        name="CPerIDfiltro"
+        id="CPerIDfiltro"
+        formControlName="PerIDfiltro"
+        (click)="consultaPacientesTotales(false)"
+      >
+        <option value="value1">Pacientes</option>
+        <option *ngFor="let pae of PaciUniT" [value]="pae.id_paciente">
+          {{ pae.nombre_pac }}
+        </option>
+      </select>
+      </button>
+
+      <br /><br />
+
+      <h2>{{ tituloPaciUniListaID }}</h2>
+
+      <table>
+        <thead>
+          <th>{{ tablapacientestotalesID[0] }}</th>
+          <th>{{ tablapacientestotalesID[1] }}</th>
+          <th>{{ tablapacientestotalesID[5] }}</th>
+          <th>{{ tablapacientestotalesID[6] }}</th>
+          <th>{{ tablapacientestotalesID[7] }}</th>
+          <th>{{ tablapacientestotalesID[8] }}</th>
+          <th>{{ tablapacientestotalesID[9] }}</th>
+          <th>{{ tablapacientestotalesID[10] }}</th>
+          <th>{{ tablapacientestotalesID[11] }}</th>
+          <th>{{ tablapacientestotalesID[12] }}</th>
+          <th>{{ tablapacientestotalesID[13] }}</th>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let pacudoc of PaciUniTID">
+            <th>{{ pacudoc.id_paciente }}</th>
+            <th>{{ pacudoc.nombre_pac }}</th>
+            <th>{{ pacudoc.nacimiento_pac }}</th>
+            <th>{{ pacudoc.alergias_pac }}</th>
+            <th>{{ pacudoc.estatura_pac }}</th>
+            <th>{{ pacudoc.peso_pac }}</th>
+            <th>{{ pacudoc.tipo_doc }}</th>
+            <th>{{ pacudoc.num_doc_pac }}</th>
+            <th>{{ pacudoc.sexo_pac }}</th>
+            <th>{{ pacudoc.usuario }}</th>
+            <th>{{ pacudoc.login_correo_pac }}</th>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+
+<br /><br />
+  <div class="listaPacDoc">
+    <h2>Pacientes Tipo Documento</h2>
+    <form
+      (ngSubmit)="consultaPacientesDoc(CBPersonaDoc.value.PerDocfiltro)"
+      [formGroup]="CBPersonaDoc"
+    >
+      <button type="submit" style="margin-right: 30px">
+        Tipo Documento
+        <select
+          class="dropdown"
+          style="width: 150px"
+          formControlName="PerDocfiltro"
+        >
+          <option value="8">Cédula Ciudadanía</option>
+          <option value="9">Tarjeta Identidad</option>
+          <option value="10">Cédula Extranjería</option>
+          <option value="11">Pasaporte</option>
+        </select>
+      </button>
+      <button (click)="LimpiarTablaDoc()">Limpiar Tabla de Documento</button>
+
+      <br /><br />
+
+      <h2>{{ tituloPaciUniListaDoc }}</h2>
+
+      <table>
+        <thead>
+          <th>{{ tablapacientestotalesDoc[0] }}</th>
+          <th>{{ tablapacientestotalesDoc[1] }}</th>
+          <th>{{ tablapacientestotalesDoc[5] }}</th>
+          <th>{{ tablapacientestotalesDoc[6] }}</th>
+          <th>{{ tablapacientestotalesDoc[7] }}</th>
+          <th>{{ tablapacientestotalesDoc[8] }}</th>
+          <th>{{ tablapacientestotalesDoc[9] }}</th>
+          <th>{{ tablapacientestotalesDoc[10] }}</th>
+          <th>{{ tablapacientestotalesDoc[11] }}</th>
+          <th>{{ tablapacientestotalesDoc[12] }}</th>
+          <th>{{ tablapacientestotalesDoc[13] }}</th>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let pacudoc of PaciUniTDoc">
+            <th>{{ pacudoc.id_paciente }}</th>
+            <th>{{ pacudoc.nombre_pac }}</th>
+            <th>{{ pacudoc.nacimiento_pac }}</th>
+            <th>{{ pacudoc.alergias_pac }}</th>
+            <th>{{ pacudoc.estatura_pac }}</th>
+            <th>{{ pacudoc.peso_pac }}</th>
+            <th>{{ pacudoc.tipo_doc }}</th>
+            <th>{{ pacudoc.num_doc_pac }}</th>
+            <th>{{ pacudoc.sexo_pac }}</th>
+            <th>{{ pacudoc.usuario }}</th>
+            <th>{{ pacudoc.login_correo_pac }}</th>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+
+  <br /><br />
+
+  <div class="formuCrear">
+    <button (click)="mostrarForm()">Crear Paciente</button>
+    <button (click)="ocultarForm()">Ocultar Formulario</button>
+  </div>
+
+  <div class="creaPer" *ngIf="mostrarFormulario">
+    <h2>Registrar un Nuevo Paciente</h2>
+    <form (ngSubmit)="insertPaciente()" [formGroup]="CrearPacienteU">
+      <!-- Los otros controles para la captura de los datos del Catalogo -->
+      <span class="spn_lbl">Primer Nombre : </span>
+      <label for="textNueNom1">
+        <input
+          type="text"
+          name="CtextNueNom1"
+          id="CtextNueNom1"
+          formControlName="textNueNom1"
+        />
+      </label>
+      <br /><br />
+      <span class="spn_lbl">Segundo Nombre : </span>
+      <label for="textNueNom2">
+        <input
+          type="text"
+          name="CtextNueNom2"
+          id="CtextNueNom2"
+          formControlName="textNueNom2"
+        />
+      </label>
+      <br /><br />
+      <span class="spn_lbl">Primer Apellido : </span>
+      <label for="textApell1">
+        <input
+          type="text"
+          name="CtextApell1"
+          id="CtextApell1"
+          formControlName="textApell1"
+        />
+      </label>
+      <br /><br />
+      <span class="spn_lbl">Segundo Apellido : </span>
+      <label for="textApell2">
+        <input
+          type="text"
+          name="CtextApell2"
+          id="CtextApell2"
+          formControlName="textApell2"
+        />
+      </label>
+      <br /><br />
+      <span class="spn_lbl">Fecha Nacimiento :</span>
+      <label for="textFecha">
+        <input
+          type="date"
+          name="CtextFecha"
+          id="CtextFecha"
+          formControlName="textFecha"
+        />
+      </label>
+      <br /><br />
+      <span class="spn_lbl">Alergias : </span>
+      <label for="textAlergia">
+        <input
+          type="text"
+          name="CtextAlergia"
+          id="CtextAlergia"
+          formControlName="textAlergia"
+        />
+      </label>
+      <br /><br />
+      <span class="spn_lbl">Estaturas : </span>
+      <label for="textEstatura">
+        <input
+          type="text"
+          name="CtextEstatura"
+          id="CtextEstatura"
+          formControlName="textEstatura"
+        />
+      </label>
+      <br /><br />
+      <span class="spn_lbl">Peso : </span>
+      <label for="textPeso">
+        <input
+          type="text"
+          name="CtextPeso"
+          id="CtextPeso"
+          formControlName="textPeso"
+        />
+      </label>
+      <br /><br />
+
+      <span class="spn_lbl">Tipo de Documento : </span>
+      <label for="textTipDoc">
+        <select
+          name="CtextTipDoc"
+          id="CtextTipDoc"
+          formControlName="textTipDoc"
+          (click)="consultaCatalogoDocTotales()"
+        >
+          <option value="value1">Tipo de Documento</option>
+          <option *ngFor="let pae of CataDocUniT" [value]="pae.id_catalogo_universal">
+            {{ pae.nom_catalogo }}
+          </option>
+        </select>
+      </label>
+
+      <br /><br />
+      <span class="spn_lbl">Numero Documento : </span>
+      <label for="textNumDoc">
+        <input
+          type="text"
+          name="CtextNumDoc"
+          id="CtextNumDoc"
+          formControlName="textNumDoc"
+        />
+      </label>
+      <br /><br />
+
+      <span class="spn_lbl">Preferencia Sexual : </span>
+      <label for="textTipSex">
+        <select
+          name="CtextTipSex"
+          id="CtextTipSex"
+          formControlName="textTipSex"
+          (click)="consultaCatalogoSexoTotales()"
+        >
+          <option value="value1">Preferencia Sexual</option>
+          <option *ngFor="let pae of CataSexoUniT" [value]="pae.id_catalogo_universal">
+            {{ pae.nom_catalogo }}
+          </option>
+        </select>
+      </label>
+      <br /><br />
+
+      <span class="spn_lbl">Tipo de Usuario : </span>
+      <label for="textTipUsu">
+        <select
+          name="CtextTipUsu"
+          id="CtextTipUsu"
+          formControlName="textTipUsu"
+          (click)="consultaCatalogoUsuarioTotales()"
+        >
+          <option value="value1">Tipo de Usuario</option>
+          <option *ngFor="let pae of CataUsuarioUniT" [value]="pae.id_catalogo_universal">
+            {{ pae.nom_catalogo }}
+          </option>
+        </select>
+      </label>
+      <br /><br />
+
+      <span class="spn_lbl">Correo Login : </span>
+      <label for="textCorrLog">
+        <input
+          type="text"
+          name="CtextCorrLog"
+          id="CtextCorrLog"
+          formControlName="textCorrLog"
+        />
+      </label>
+      <br /><br />
+      <span class="spn_lbl">Contraseña Login : </span>
+      <label for="textContraLog">
+        <input
+          type="text"
+          name="CtextContraLog"
+          id="CtextContraLog"
+          formControlName="textContraLog"
+        />
+      </label>
+      <br /><br />
+
+      <button type="submit">Nuevo Paciente</button>
+      <br /><br />
+    </form>
+  </div>
+  <br /><br />
+
+  <!-- para Actualizar un Paciente -->
+
+  <div class="editPac">
+    <h2>Modificar un Paciente</h2>
+
+    <form (ngSubmit)="SelPacienteEditar()" [formGroup]="ActPacienteU">
+      <span class="spn_lbl">Paciente a Editar</span>
+      <label>
+        <select
+          class="dropdown2"
+          formControlName="CBPacienteEdi"
+          (click)="consultaPacientesTotales(false)"
+        >
+          <option value="value1">Paciente</option>
+          <option *ngFor="let paese of PaciUniT" [value]="paese.id_paciente">
+            {{ paese.nombre_pac }}
+          </option>
+        </select>
+      </label>
+      <button type="submit" (click)="obtenerPacienteSeleccionado(1)">
+        Buscar Persona a Editar
+      </button>
+
+      <h2>{{ titloPaciUniEditar }}</h2>
+
+      <li *ngFor="let pae of PacienteUniEdi">
+        <!-- Los otros controles para la captura de los datos deL cATALOGO -->
+        <span class="spn_lbl">Primer Nombre</span>
+        <label for="CtextNueNom1Edi"
+          ><input
+            type="text"
+            name="CtextNueNom1Edi"
+            id="CtextNueNom1Edi"
+            value="{{ pae.nom1_pac }}"
+            [(ngModel)]="pae.nom1_pac"
+            [value]="pae.nom1_pac"
+            formControlName="textNueNom1Edi"
+        /></label>
+        <br /><br />
+        <span class="spn_lbl">Segundo Nombre</span>
+        <label for="CtextNueNom2Edi"
+          ><input
+            type="text"
+            name="CtextNueNom2Edi"
+            id="CtextNueNom2Edi"
+            value="{{ pae.nom2_pac }}"
+            [(ngModel)]="pae.nom2_pac"
+            [value]="pae.nom2_pac"
+            formControlName="textNueNom2Edi"
+        /></label>
+        <br /><br />
+        <span class="spn_lbl">Primer Apellido</span>
+        <label for="textApell1Edi"
+          ><input
+            type="text"
+            name="CtextApell1Edi"
+            id="CtextApell1Edi"
+            value="{{ pae.apell1_pac }}"
+            [(ngModel)]="pae.apell1_pac"
+            [value]="pae.apell1_pac"
+            formControlName="textApell1Edi"
+        /></label>
+        <br /><br />
+        <span class="spn_lbl">Segundo Apellido</span>
+        <label for="CtextApell2Edi"
+          ><input
+            type="text"
+            name="CtextApell2Edi"
+            id="CtextApell2Edi"
+            value="{{ pae.apell2_pac }}"
+            [(ngModel)]="pae.apell2_pac"
+            [value]="pae.apell2_pac"
+            formControlName="textApell2Edi"
+        /></label>
+        <br /><br />
+        <span class="spn_lbl">Fecha Nacimiento</span>
+        <label for="CtextFechaEdi"
+          ><input
+            type="date"
+            name="CtextFechaEdi"
+            id="CtextFechaEdi"
+            value="{{ pae.nacimiento_pac }}"
+            [(ngModel)]="pae.nacimiento_pac"
+            [value]="pae.nacimiento_pac"
+            formControlName="textFechaEdi"
+        /></label>
+        <br /><br />
+        <span class="spn_lbl">Alergias</span>
+        <label for="CtextAlergiaEdi"
+          ><input
+            type="text"
+            name="CtextAlergiaEdi"
+            id="CtextAlergiaEdi"
+            value="{{ pae.alergias_pac }}"
+            [(ngModel)]="pae.alergias_pac"
+            [value]="pae.alergias_pac"
+            formControlName="textAlergiaEdi"
+        /></label>
+        <br /><br />
+        <span class="spn_lbl">Estatura</span>
+        <label for="CtextEstaturaEdi"
+          ><input
+            type="text"
+            name="CtextEstaturaEdi"
+            id="CtextEstaturaEdi"
+            value="{{ pae.estatura_pac }}"
+            [(ngModel)]="pae.estatura_pac"
+            [value]="pae.estatura_pac"
+            formControlName="textEstaturaEdi"
+        /></label>
+        <br /><br />
+        <span class="spn_lbl">Peso</span>
+        <label for="CtextNueNom1"
+          ><input
+            type="text"
+            name="CtextPesoEdi"
+            id="CtextPesoEdi"
+            value="{{ pae.peso_pac }}"
+            [(ngModel)]="pae.peso_pac"
+            [value]="pae.peso_pac"
+            formControlName="textPesoEdi"
+        /></label>
+        <br /><br />
+
+        <span class="spn_lbl">Tipo de Documento : </span>
+        <label for="textTipDocEdi">
+          <select
+            name="CtextTipDocEdi"
+            id="CtextTipDocEdi"
+            formControlName="textTipDocEdi"
+            (click)="consultaCatalogoDocTotales()"
+          >
+            <option value="value1">Tipo de Documento</option>
+            <option *ngFor="let pae of CataDocUniT" [value]="pae.id_catalogo_universal">
+              {{ pae.nom_catalogo }}
+            </option>
+          </select>
+        </label>
+        <br /><br />
+
+        <span class="spn_lbl">Numero Documento</span>
+        <label for="CtextNumDocEdi"
+          ><input
+            type="text"
+            name="CtextNumDocEdi"
+            id="CtextNumDocEdi"
+            value="{{ pae.num_doc_pac }}"
+            [(ngModel)]="pae.num_doc_pac"
+            [value]="pae.num_doc_pac"
+            formControlName="textNumDocEdi"
+        /></label>
+        <br /><br />
+        
+        <span class="spn_lbl">Preferencia Sexual : </span>
+        <label for="textTipSexEdi">
+          <select
+            name="CtextTipSexEdi"
+            id="CtextTipSexEdi"
+            formControlName="textTipSexEdi"
+            (click)="consultaCatalogoSexoTotales()"
+          >
+            <option value="value1">Preferencia Sexual</option>
+            <option *ngFor="let pae of CataSexoUniT" [value]="pae.id_catalogo_universal">
+              {{ pae.nom_catalogo }}
+            </option>
+          </select>
+        </label>
+        <br /><br />
+
+        <span class="spn_lbl">Tipo de Usuario : </span>
+        <label for="textTipUsuEdi">
+          <select
+            name="CtextTipUsuEdi"
+            id="CtextTipUsuEdi"
+            formControlName="textTipUsuEdi"
+            (click)="consultaCatalogoUsuarioTotales()"
+          >
+            <option value="value1">Tipo de Usuario</option>
+            <option *ngFor="let pae of CataUsuarioUniT" [value]="pae.id_catalogo_universal">
+              {{ pae.nom_catalogo }}
+            </option>
+          </select>
+        </label>
+        <br /><br />
+
+        <span class="spn_lbl">Login Correo</span>
+        <label for="CtextCorrLogEdi"
+          ><input
+            type="text"
+            name="CtextCorrLogEdi"
+            id="CtextCorrLogEdi"
+            value="{{ pae.login_correo_pac }}"
+            [(ngModel)]="pae.login_correo_pac"
+            [value]="pae.login_correo_pac"
+            formControlName="textCorrLogEdi"
+        /></label>
+        <br /><br />
+        <span class="spn_lbl">Contraseña</span>
+        <label for="CtextContraLogEdi"
+          ><input
+            type="text"
+            name="CtextContraLogEdi"
+            id="CtextContraLogEdi"
+            value="{{ pae.login_contrasena_pac }}"
+            [(ngModel)]="pae.login_contrasena_pac"
+            [value]="pae.login_contrasena_pac"
+            formControlName="textContraLogEdi"
+        /></label>
+        <br /><br />
+
+        <br /><br />
+      </li>
+      <br /><br />
+
+      <button (click)="ActualizarPaciente()">Actualizar Registro</button>
+
+      <br /><br />
+    </form>
+  </div>
+
+</body>

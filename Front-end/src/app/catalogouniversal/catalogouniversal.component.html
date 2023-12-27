@@ -1,0 +1,452 @@
+<body>
+  <div style="text-align: center">
+    <h1>{{ title }}</h1>
+    <img width="300" alt="Logo Proyecto" src="/assets/zindexlogo.jpg" />
+  </div>
+
+  <br /><br />
+
+  <div class="dir">
+    <h3><a routerLink="/Inicio">Inicio</a></h3>
+  </div>
+  <br /><br />
+
+  <!--------------------------------------------------------------------------------------------->
+  <!-- para mostrar los Catalogos Totales -->
+
+  <div class="listaU">
+    <h2>Todos los Catalogos</h2>
+
+    <form
+      (ngSubmit)="consultaCatalogosTotales(true)"
+      [formGroup]="ListarCatTotales"
+    >
+      <button type="submit" style="margin-right: 30px">
+        Listar todos los Catalogos
+      </button>
+      <button (click)="LimpiarLista(false)" style="scroll-margin-left: 30px">
+        Limpiar todos los Catalogos
+      </button>
+
+      <br /><br />
+    <div *ngIf="flag" >
+      <h2>{{ tituloCataUniLista }}</h2>
+
+      <table>
+        <thead>
+          <th>{{ tablacatalogosstotales[0] }}</th>
+          <th>{{ tablacatalogosstotales[1] }}</th>
+          <th>{{ tablacatalogosstotales[2] }}</th>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let catu of CataUniT">
+            <th>{{ catu.id_catalogo_universal }}</th>
+            <th>{{ catu.nom_catalogo }}</th>
+            <th>{{ catu.tipo_catalogo }}</th>
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+    </form>
+  </div>
+  <br /><br />
+
+  <!--------------------------------------------------------------------------------------------->
+  <!-- para mostrar un solo Catalogo Colores -->
+
+  <div class="colo">
+    <h2>Mostramos el Catalogo de Documento</h2>
+
+    <form (ngSubmit)="ListarCatalogoE(1)" [formGroup]="CBCatalogoColor">
+      Tipo Documento
+      <select
+        class="dropdown"
+        style="width: 150px"
+        formControlName="CatColorfiltro"
+        (click)="ListarCatalogoE(2)"
+      >
+        <option value="value1">Seleccione Tipo Documento</option>
+        <option
+          *ngFor="let lor of CataUniColor"
+          [value]="lor.id_catalogo_universal"
+        >
+          {{ lor.nom_catalogo }}
+        </option>
+      </select>
+
+      <button (click)="SelecCatalogoE(2, 1)">Buscar valor a guardar</button>
+      <br />
+      <br />
+      <li *ngFor="let colo of CataUniColorSel">
+        Valor selecionado
+        <label for="EColor"
+          ><input
+            type="text"
+            name="EColor"
+            id="EColor"
+            value="{{ colo.nom_catalogo }}"
+            [(ngModel)]="colo.id_catalogo_universal"
+            [value]="colo.id_catalogo_universal"
+            formControlName="textColor"
+        /></label>
+      </li>
+      <br />
+    </form>
+
+    <br />
+  </div>
+
+  <br /><br />
+
+  <!--------------------------------------------------------------------------------------------->
+  <!-- para mostrar un solo Catalogo Tipos de Vehiculo -->
+
+  <div class="Tipveh">
+    <h2>Mostramos el Catalogo de Tipos de Contactos</h2>
+
+    <form (ngSubmit)="ListarCatalogoE(1)" [formGroup]="CBCatalogoTipVehi">
+      Tipos de Contactos
+      <select
+        class="dropdown"
+        style="width: 150px"
+        formControlName="CatTipVehifiltro"
+        (click)="ListarCatalogoE(3)"
+      >
+        <option value="value1">Tipos de Contactos</option>
+        <option
+          *ngFor="let TiVe of CataUniTipVehi"
+          [value]="TiVe.id_catalogo_universal"
+        >
+          {{ TiVe.nom_catalogo }}
+        </option>
+      </select>
+
+      <button (click)="SelecCatalogoE(3, 1)">Buscar valor a guardar</button>
+      <br />
+      <br />
+      <li *ngFor="let tipveh of CataUniTipVehiSel">
+        Valor selecionado
+        <label for="ETipVeh"
+          ><input
+            type="text"
+            name="ETipVeh"
+            id="ETipVeh"
+            value="{{ tipveh.id_catalogo_universal }}"
+            [(ngModel)]="tipveh.id_catalogo_universal"
+            [value]="tipveh.id_catalogo_universal"
+            formControlName="textTivVehi"
+        /></label>
+      </li>
+      <br />
+    </form>
+
+    <br />
+  </div>
+  <br /><br />
+
+  <!--------------------------------------------------------------------------------------------->
+  <!-- para mostrar un solo Catalogo Marca -->
+
+  <div class="Marc">
+    <h2>Mostramos el Catalogo de Preferencias Sexuales</h2>
+
+    <form (ngSubmit)="ListarCatalogoE(4)" [formGroup]="CBCatalogoMarca">
+      Preferencias Sexuales
+      <select
+        class="dropdown"
+        style="width: 150px"
+        formControlName="CatMarcafiltro"
+        (click)="ListarCatalogoE(4)"
+      >
+        <option value="value1">Preferencias Sexuales</option>
+        <option
+          *ngFor="let Marc of CataUniMarca"
+          [value]="Marc.id_catalogo_universal"
+        >
+          {{ Marc.nom_catalogo }}
+        </option>
+      </select>
+
+      <button (click)="SelecCatalogoE(4, 1)">Buscar valor a guardar</button>
+      <br />
+      <br />
+      <li *ngFor="let Mar of CataUniMarcaSel">
+        Valor selecionado
+        <label for="EMarca"
+          ><input
+            type="text"
+            name="EMarca"
+            id="EMarca"
+            value="{{ Mar.id_catalogo_universal }}"
+            [(ngModel)]="Mar.id_catalogo_universal"
+            [value]="Mar.id_catalogo_universal"
+            formControlName="textMarca"
+        /></label>
+      </li>
+      <br />
+    </form>
+
+    <br />
+  </div>
+  <br /><br />
+
+  <!--------------------------------------------------------------------------------------------->
+  <!-- para mostrar un solo Catalogo de Tipos de Documentos -->
+
+  <div class="TipDocc">
+    <h2>Mostramos el Catalogo de Tipos de Especialidades</h2>
+
+    <form (ngSubmit)="ListarCatalogoE(5)" [formGroup]="CBCatalogoTipDoc">
+      Tipos de Especialidades
+      <select
+        class="dropdown"
+        style="width: 150px"
+        formControlName="CatTipDocfiltro"
+        (click)="ListarCatalogoE(5)"
+      >
+        <option value="value1">Tipos de Especialidades</option>
+        <option
+          *ngFor="let tidos of CataUniTipDoc"
+          [value]="tidos.id_catalogo_universal"
+        >
+          {{ tidos.nom_catalogo }}
+        </option>
+      </select>
+
+      <button (click)="SelecCatalogoE(5, 1)">Buscar valor a guardar</button>
+      <br />
+      <br />
+      <li *ngFor="let tido of CataUniTipDocSel">
+        Valor selecionado
+        <label for="ETipDoc"
+          ><input
+            type="text"
+            name="ETipDoc"
+            id="ETipDoc"
+            value="{{ tido.id_catalogo_universal }}"
+            [(ngModel)]="tido.id_catalogo_universal"
+            [value]="tido.id_catalogo_universal"
+            formControlName="textTivDoc"
+        /></label>
+      </li>
+      <br />
+    </form>
+
+    <br />
+  </div>
+  <br /><br />
+
+  <!--------------------------------------------------------------------------------------------->
+  <!-- para mostrar un solo Catalogo de Tipos de Documentos -->
+
+  <div class="Epps">
+    <h2>Mostramos el Catalogo de Tipo de Usuario</h2>
+
+    <form (ngSubmit)="ListarCatalogoE(6)" [formGroup]="CBCatalogoEps">
+      Tipo de Usuario
+      <select
+        class="dropdown"
+        style="width: 150px"
+        formControlName="CatEpsfiltro"
+        (click)="ListarCatalogoE(6)"
+      >
+        <option value="value1">Tipo de Usuario</option>
+        <option
+          *ngFor="let epss of CataUniEps"
+          [value]="epss.id_catalogo_universal"
+        >
+          {{ epss.nom_catalogo }}
+        </option>
+      </select>
+
+      <button (click)="SelecCatalogoE(6, 1)">Buscar valor a guardar</button>
+      <br />
+      <br />
+      <li *ngFor="let epso of CataUniEpsSel">
+        Valor selecionado
+        <label for="EEps"
+          ><input
+            type="text"
+            name="EEps"
+            id="EEps"
+            value="{{ epso.id_catalogo_universal }}"
+            [(ngModel)]="epso.id_catalogo_universal"
+            [value]="epso.id_catalogo_universal"
+            formControlName="textEps"
+        /></label>
+      </li>
+      <br />
+    </form>
+
+    <br />
+  </div>
+  <br /><br />
+
+  <!--------------------------------------------------------------------------------------------->
+  <!-- para mostrar un solo Catalogo de Tipos de Documentos -->
+
+  <div class="pref">
+    <h2>Mostramos el Catalogo de Tipo de Estado de Cita</h2>
+
+    <form (ngSubmit)="ListarCatalogoE(7)" [formGroup]="CBCatalogoPrefSexual">
+      Estados de Cita
+      <select
+        class="dropdown"
+        style="width: 150px"
+        formControlName="CatPrefSexualfiltro"
+        (click)="ListarCatalogoE(7)"
+      >
+        <option value="value1">Estado Cita</option>
+        <option
+          *ngFor="let pfs of CataUniPrefSexual"
+          [value]="pfs.id_catalogo_universal"
+        >
+          {{ pfs.nom_catalogo }}
+        </option>
+      </select>
+
+      <button (click)="SelecCatalogoE(7, 1)">Buscar valor a guardar</button>
+      <br />
+      <br />
+      <li *ngFor="let pfse of CataUniPrefSexualSel">
+        Valor selecionado
+        <label for="Epfse"
+          ><input
+            type="text"
+            name="Epfse"
+            id="Epfse"
+            value="{{ pfse.id_catalogo_universal }}"
+            [(ngModel)]="pfse.id_catalogo_universal"
+            [value]="pfse.id_catalogo_universal"
+            formControlName="textPrefSexual"
+        /></label>
+      </li>
+      <br />
+    </form>
+
+    <br />
+  </div>
+  <br /><br />
+
+  <!-- para crear un nuevo Catalogo Universal -->
+
+  <div class="creaU">
+    <h2>Registrar un Nuevo Catalogo Universal</h2>
+
+    <form (ngSubmit)="insertUniversal()" [formGroup]="CrearCatalogoU">
+      <!-- Los otros controles para la captura de los datos del Catalogo -->
+      <span class="spn_lbl">Nombre De Catalogo</span>
+      <label for="textNueDenominacion">
+        <input
+          type="text"
+          name="CtextNueDenominacion"
+          id="CtextNueDenominacion"
+          formControlName="textNueDenominacion"
+        />
+      </label>
+      <br /><br />
+
+      <span class="spn_lbl">Tipo de Catalogo</span>
+      <label for="CBTipoCatalogo">
+        <select
+          class="dropdown"
+          formControlName="CBTipoCatalogo"
+          (click)="ListarCatalogoE(1)"
+        >
+          <option value="value1">Tipos Documentos</option>
+          <option
+            *ngFor="let tidos of CataUniCatalogo"
+            [value]="tidos.id_catalogo_universal"
+          >
+            {{ tidos.nom_catalogo }}
+          </option>
+        </select>
+      </label>
+      <br />
+      <br />
+
+      <button type="submit">Nuevo Catalogo Universal</button>
+      <br /><br />
+    </form>
+  </div>
+  <br /><br />
+
+  <!--------------------------------------------------------------------------------------------->
+
+  <!--------------------------------------------------------------------------------------------->
+  <!-- para Actualizar un Catalogo Universal -->
+
+  <div class="editU">
+    <h2>Modificar un Catalogo Universal</h2>
+
+    <form (ngSubmit)="SelCataEditar()" [formGroup]="ActCatalogoU">
+      <span class="spn_lbl">Catalogo a Editar</span>
+      <label>
+        <select
+          class="dropdown2"
+          formControlName="CBCatalogoEdi"
+          (click)="consultaCatalogosTotales(false)"
+        >
+          <option value="value1">Catalogo</option>
+          <option
+            *ngFor="let caese of CataUniT"
+            [value]="caese.id_catalogo_universal"
+          >
+            {{ caese.nom_catalogo }}
+          </option>
+        </select>
+      </label>
+      <button type="submit" (click)="ListarCatalogoE(1)">
+        Buscar Catalogo a Editar
+      </button>
+
+      <h2>{{ titloCataUniEditar }}</h2>
+
+      <li *ngFor="let cae of CataUniCataEdi">
+        <!-- Los otros controles para la captura de los datos deL cATALOGO -->
+
+        <span class="spn_lbl">Nombre Catalogo</span>
+        <label for="CtextNueDenominacionEdi"
+          ><input
+            type="text"
+            name="CtextNueDenominacionEdi"
+            id="CtextNueDenominacionEdi"
+            value="{{ cae.nom_catalogo }}"
+            [(ngModel)]="cae.nom_catalogo"
+            [value]="cae.nom_catalogo"
+            formControlName="textNueDenominacionEdi"
+        /></label>
+        <br /><br />
+
+        <span class="spn_lbl">Tipo de Catalogo</span>
+        <label for="CBTipoCatalogoEdi">
+          <select
+            class="dropdown"
+            formControlName="CBTipoCatalogoEdi"
+            [(ngModel)]="cae.tipo_catalogo"
+          >
+            <option value="value1">Tipo Catalogo</option>
+            <option
+              *ngFor="let tidos of CataUniCatalogo"
+              [value]="tidos.id_catalogo_universal"
+            >
+              {{ tidos.nom_catalogo }}
+            </option>
+          </select>
+        </label>
+        <br /><br />
+      </li>
+      <br /><br />
+
+      <button (click)="ActualizarCatalogo()">Actualizar Registro</button>
+
+      <br /><br />
+    </form>
+  </div>
+
+  <div class="dir">
+    <h3><a routerLink="/Paciente">PACIENTE</a></h3>
+  </div>
+</body>

@@ -1,0 +1,571 @@
+<body>
+  <div style="text-align: center">
+    <h1>{{ title }}</h1>
+    <img width="300" alt="Logo Proyecto" src="/assets/zindexlogo.jpg" />
+  </div>
+  <br /><br />
+  <div class="dir">
+    <h3><a routerLink="/Inicio">Inicio</a></h3>
+  </div>
+  <br /><br />
+  <div class="listaDoc">
+    <h2>Todos los Doctores</h2>
+
+    <form
+      (ngSubmit)="consultaDoctoresTotales(true)"
+      [formGroup]="ListarDoctTotales"
+    >
+      <button type="submit" style="margin-right: 30px">
+        Listar todos los Doctores
+      </button>
+      <button (click)="LimpiarLista(false)" style="scroll-margin-left: 30px">
+        Limpiar todos los Doctores
+      </button>
+
+      <br /><br />
+      <div *ngIf="flag" >
+      <h2>{{ tituloDoctUniLista }}</h2>
+
+      <table>
+        <thead>
+          <th>{{ tabladoctorestotales[0] }}</th>
+          <th>{{ tabladoctorestotales[1] }}</th>
+          <th>{{ tabladoctorestotales[5] }}</th>
+          <th>{{ tabladoctorestotales[6] }}</th>
+          <th>{{ tabladoctorestotales[7] }}</th>
+          <th>{{ tabladoctorestotales[8] }}</th>
+          <th>{{ tabladoctorestotales[9] }}</th>
+          <th>{{ tabladoctorestotales[10] }}</th>
+          <th>{{ tabladoctorestotales[11] }}</th>
+          <th>{{ tabladoctorestotales[12] }}</th>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let docu of DoctUniT">
+            <th>{{ docu.id_doctor }}</th>
+            <th>{{ docu.nom_doc }}</th>
+            <th>{{ docu.nacimiento_doc }}</th>
+            <th>{{ docu.horario_doc }}</th>
+            <th>{{ docu.tipo_doc }}</th>
+            <th>{{ docu.num_doc_doc }}</th>
+            <th>{{ docu.Sexo }}</th>
+            <th>{{ docu.tipo_usuario }}</th>
+            <th>{{ docu.Especialidad }}</th>
+            <th>{{ docu.login_correo_doc }}</th>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </form>
+  </div>
+  <br /><br />
+
+  <div class="listaDocID">
+    <h2>Doctores Por ID</h2>
+    <form
+      (ngSubmit)="consultaDoctoresID(CBDoctorID.value.PerIDfiltro)"
+      [formGroup]="CBDoctorID"
+    >
+      <button type="submit" style="margin-right: 30px">
+        ID Doctor
+        <select
+        name="CPerIDfiltro"
+        id="CPerIDfiltro"
+        formControlName="PerIDfiltro"
+        (click)="consultaDoctoresTotales(false)"
+      >
+        <option value="value1">Doctores</option>
+        <option *ngFor="let pae of DoctUniT" [value]="pae.id_doctor">
+          {{ pae.nom_doc }}
+        </option>
+      </select>
+      </button>
+
+      <br /><br />
+
+      <h2>{{ tituloDoctUniListaID }}</h2>
+
+      <table>
+        <thead>
+          <th>{{ tabladoctorestotalesID[0] }}</th>
+          <th>{{ tabladoctorestotalesID[1] }}</th>
+          <th>{{ tabladoctorestotalesID[5] }}</th>
+          <th>{{ tabladoctorestotalesID[6] }}</th>
+          <th>{{ tabladoctorestotalesID[7] }}</th>
+          <th>{{ tabladoctorestotalesID[8] }}</th>
+          <th>{{ tabladoctorestotalesID[9] }}</th>
+          <th>{{ tabladoctorestotalesID[10] }}</th>
+          <th>{{ tabladoctorestotalesID[11] }}</th>
+          <th>{{ tabladoctorestotalesID[12] }}</th>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let pacudoc of DoctUniTID">
+            <th>{{ pacudoc.id_doctor }}</th>
+            <th>{{ pacudoc.nom_doc }}</th>
+            <th>{{ pacudoc.nacimiento_doc }}</th>
+            <th>{{ pacudoc.horario_doc }}</th>
+            <th>{{ pacudoc.tipo_doc }}</th>
+            <th>{{ pacudoc.num_doc_doc }}</th>
+            <th>{{ pacudoc.Sexo }}</th>
+            <th>{{ pacudoc.tipo_usuario }}</th>
+            <th>{{ pacudoc.Especialidad }}</th>
+            <th>{{ pacudoc.login_correo_doc }}</th>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+
+  <br /><br />
+
+  <div class="listaDocEsp">
+    <h2>Doctores Tipo Especialidad</h2>
+    <form
+      (ngSubmit)="consultaDoctorEsp(CBDoctorEsp.value.DocEspfiltro)"
+      [formGroup]="CBDoctorEsp"
+    >
+      <button type="submit" style="margin-right: 30px">
+        Tipo Especialidad
+        <select
+          class="dropdown"
+          style="width: 150px"
+          formControlName="DocEspfiltro"
+        >
+          <option value="18">Alergologia</option>
+          <option value="19">Anestesiologia</option>
+          <option value="20">Dermatologia</option>
+          <option value="21">Ginecologia</option>
+          <option value="22">Neurologia</option>
+          <option value="23">Oftalmologia</option>
+          <option value="24">Ortopedia y Traumatologia</option>
+          <option value="25">Otorrinolaringologia</option>
+          <option value="26">Patologia</option>
+          <option value="27">Pediatria</option>
+          <option value="28">Psiquiatria</option>
+          <option value="29">Radiologia</option>
+          <option value="30">Cardiologia</option>
+          <option value="31">Enocrinologia</option>
+          <option value="32">Hematologia</option>
+          <option value="33">Reumatologia</option>
+          <option value="34">Medico general</option>
+        </select>
+      </button>
+      <button (click)="LimpiarTablaDoc()">Limpiar Tabla de Documento</button>
+
+      <br /><br />
+
+      <h2>{{ tituloDoctUniListaDoc }}</h2>
+
+      <table>
+        <thead>
+          <th>{{ tabladoctorestotalesDoc[0] }}</th>
+          <th>{{ tabladoctorestotalesDoc[1] }}</th>
+          <th>{{ tabladoctorestotalesDoc[5] }}</th>
+          <th>{{ tabladoctorestotalesDoc[6] }}</th>
+          <th>{{ tabladoctorestotalesDoc[7] }}</th>
+          <th>{{ tabladoctorestotalesDoc[8] }}</th>
+          <th>{{ tabladoctorestotalesDoc[9] }}</th>
+          <th>{{ tabladoctorestotalesDoc[10] }}</th>
+          <th>{{ tabladoctorestotalesDoc[11] }}</th>
+          <th>{{ tabladoctorestotalesDoc[12] }}</th>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let docuesp of DoctiUniTEsp">
+            <th>{{ docuesp.id_doctor }}</th>
+            <th>{{ docuesp.nom_doc }}</th>
+            <th>{{ docuesp.nacimiento_doc }}</th>
+            <th>{{ docuesp.horario_doc }}</th>
+            <th>{{ docuesp.tipo_doc }}</th>
+            <th>{{ docuesp.num_doc_doc }}</th>
+            <th>{{ docuesp.Sexo }}</th>
+            <th>{{ docuesp.tipo_usuario }}</th>
+            <th>{{ docuesp.Especialidad }}</th>
+            <th>{{ docuesp.login_correo_doc }}</th>
+          </tr>
+        </tbody>
+      </table>
+    </form>
+  </div>
+  <br /><br />
+  <div class="formuCrear">
+    <button (click)="mostrarForm()">Crear Doctor</button>
+    <button (click)="ocultarForm()">Ocultar Formulario</button>
+  </div>
+
+  <div class="creaDoc" *ngIf="mostrarFormulario">
+    <h2>Registrar un Nuevo Doctor</h2>
+    <form (ngSubmit)="insertDoctor()" [formGroup]="CrearDoctorU">
+      <span class="spn_lbl">Primer Nombre : </span>
+      <label for="textNueNom1Doct">
+        <input
+          type="text"
+          name="CtextNueNom1Doct"
+          id="CtextNueNom1Doct"
+          formControlName="textNueNom1Doct"
+        />
+      </label>
+      <br /><br />
+      <span class="spn_lbl">Segundo Nombre : </span>
+      <label for="textNueNom2Doct">
+        <input
+          type="text"
+          name="CtextNueNom2Doct"
+          id="CtextNueNom2Doct"
+          formControlName="textNueNom2Doct"
+        />
+      </label>
+      <br /><br />
+      <span class="spn_lbl">Primer Apellido : </span>
+      <label for="textApell1Doct">
+        <input
+          type="text"
+          name="CtextApell1Doct"
+          id="CtextApell1Doct"
+          formControlName="textApell1Doct"
+        />
+      </label>
+      <br /><br />
+      <span class="spn_lbl">Segundo Apellido : </span>
+      <label for="textApell2Doct">
+        <input
+          type="text"
+          name="CtextApell2Doct"
+          id="CtextApell2Doct"
+          formControlName="textApell2Doct"
+        />
+      </label>
+      <br /><br />
+      <span class="spn_lbl">Fecha Nacimiento :</span>
+      <label for="textFechaDoct">
+        <input
+          type="date"
+          name="CtextFechaDoct"
+          id="CtextFechaDoct"
+          formControlName="textFechaDoct"
+        />
+      </label>
+      <br /><br />
+      <span class="spn_lbl">Horario : </span>
+      <label for="textHorarioDoct">
+        <input
+          type="text"
+          name="CtextHorarioDoct"
+          id="CtextHorarioDoct"
+          formControlName="textHorarioDoct"
+        />
+      </label>
+
+      <br /><br />
+      <span class="spn_lbl">Tipo de Documento : </span>
+      <label for="textTipDocDoct">
+        <select
+          name="CtextTipDocDoct"
+          id="CtextTipDocDoct"
+          formControlName="textTipDocDoct"
+          (click)="consultaCatalogoDocTotales()"
+        >
+          <option value="value1">Tipo de Documento</option>
+          <option *ngFor="let pae of CataDocUniT" [value]="pae.id_catalogo_universal">
+            {{ pae.nom_catalogo }}
+          </option>
+        </select>
+      </label>
+
+      <br /><br />
+      <span class="spn_lbl">Numero Documento : </span>
+      <label for="textNumDocDoct">
+        <input
+          type="text"
+          name="CtextNumDocDoct"
+          id="CtextNumDocDoct"
+          formControlName="textNumDocDoct"
+        />
+      </label>
+      <br /><br />
+
+        <span class="spn_lbl">Preferencia Sexual : </span>
+        <label for="textTipSexDoc">
+          <select
+            name="CtextTipSexDoc"
+            id="CtextTipSexDoc"
+            formControlName="textTipSexDoc"
+            (click)="consultaCatalogoSexoTotales()"
+          >
+            <option value="value1">Preferencia Sexual</option>
+            <option *ngFor="let pae of CataSexoUniT" [value]="pae.id_catalogo_universal">
+              {{ pae.nom_catalogo }}
+            </option>
+          </select>
+        </label>
+      <br /><br />
+
+      <span class="spn_lbl">Tipo de Usuario : </span>
+      <label for="textTipUsuDoc">
+        <select
+          name="CtextTipUsuDoc"
+          id="CtextTipUsuDoc"
+          formControlName="textTipUsuDoc"
+          (click)="consultaCatalogoUsuarioTotales()"
+        >
+          <option value="value1">Tipo de Usuario</option>
+          <option *ngFor="let pae of CataUsuarioUniT" [value]="pae.id_catalogo_universal">
+            {{ pae.nom_catalogo }}
+          </option>
+        </select>
+      </label>
+
+      <br /><br />
+      <span class="spn_lbl">Tipo de Especialidad : </span>
+      <label for="textTipEspDoc">
+        <select
+          name="CtextTipEspDoc"
+          id="CtextTipEspDoc"
+          formControlName="textTipEspDoc"
+          (click)="consultaCatalogoEspecialidadTotales()"
+        >
+          <option value="value1">Tipo de Especialidad</option>
+          <option *ngFor="let pae of CataEspecialidadUniT" [value]="pae.id_catalogo_universal">
+            {{ pae.nom_catalogo }}
+          </option>
+        </select>
+      </label>
+
+      <br /><br />
+      <span class="spn_lbl">Correo Login : </span>
+      <label for="textCorrLogDoc">
+        <input
+          type="text"
+          name="CtextCorrLogDoc"
+          id="CtextCorrLogDoc"
+          formControlName="textCorrLogDoc"
+        />
+      </label>
+      <br /><br />
+      <span class="spn_lbl">Contraseña Login : </span>
+      <label for="textContraLogDoc">
+        <input
+          type="text"
+          name="CtextContraLogDoc"
+          id="CtextContraLogDoc"
+          formControlName="textContraLogDoc"
+        />
+      </label>
+      <br /><br />
+      <button type="submit">Nuevo Doctor</button>
+      <br /><br />
+    </form>
+  </div>
+  <br /><br />
+
+  <div class="editDoc">
+    <h2>Modificar un Doctor</h2>
+
+    <form (ngSubmit)="SelDoctorEditar()" [formGroup]="ActDoctorU">
+      <span class="spn_lbl">Doctor a Editar</span>
+      <label>
+        <select
+          class="dropdown2"
+          formControlName="CBDoctorEdi"
+          (click)="consultaDoctoresTotales(false)"
+        >
+          <option value="value1">Doctor</option>
+          <option *ngFor="let paese of DoctUniT" [value]="paese.id_doctor">
+            {{ paese.nom_doc }}
+          </option>
+        </select>
+      </label>
+      <button type="submit" (click)="obtenerDoctorSeleccionado(1)">
+        Buscar Persona a Editar
+      </button>
+
+      <h2>{{ titloDoctUniEditar }}</h2>
+
+      <li *ngFor="let doce of DoctorUniEdi">
+        <!-- Los otros controles para la captura de los datos deL cATALOGO -->
+        <span class="spn_lbl">Primer Nombre</span>
+        <label for="CtextNueNom1DoctEdi"
+          ><input
+            type="text"
+            name="CtextNueNom1DoctEdi"
+            id="CtextNueNom1DoctEdi"
+            value="{{ doce.nom1_doc }}"
+            [(ngModel)]="doce.nom1_doc"
+            [value]="doce.nom1_doc"
+            formControlName="textNueNom1DoctEdi"
+        /></label>
+        <br /><br />
+        <span class="spn_lbl">Segundo Nombre</span>
+        <label for="CtextNueNom2DoctEdi"
+          ><input
+            type="text"
+            name="CtextNueNom2DoctEdi"
+            id="CtextNueNom2DoctEdi"
+            value="{{ doce.nom2_doc }}"
+            [(ngModel)]="doce.nom2_doc"
+            [value]="doce.nom2_doc"
+            formControlName="textNueNom2DoctEdi"
+        /></label>
+        <br /><br />
+        <span class="spn_lbl">Primer Apellido</span>
+        <label for="CtextApell1DoctEdi"
+          ><input
+            type="text"
+            name="CtextApell1DoctEdi"
+            id="CtextApell1DoctEdi"
+            value="{{ doce.apell1_doc }}"
+            [(ngModel)]="doce.apell1_doc"
+            [value]="doce.apell1_doc"
+            formControlName="textApell1DoctEdi"
+        /></label>
+        <br /><br />
+        <span class="spn_lbl">Segundo Apellido</span>
+        <label for="CtextApell2DoctEdi"
+          ><input
+            type="text"
+            name="CtextApell2DoctEdi"
+            id="CtextApell2DoctEdi"
+            value="{{ doce.apell2_doc }}"
+            [(ngModel)]="doce.apell2_doc"
+            [value]="doce.apell2_doc"
+            formControlName="textApell2DoctEdi"
+        /></label>
+        <br /><br />
+        <span class="spn_lbl">Fecha Nacimiento</span>
+        <label for="CtextFechaDoctEdi"
+          ><input
+            type="date"
+            name="CtextFechaDoctEdi"
+            id="CtextFechaDoctEdi"
+            value="{{ doce.nacimiento_doc }}"
+            [(ngModel)]="doce.nacimiento_doc"
+            [value]="doce.nacimiento_doc"
+            formControlName="textFechaDoctEdi"
+        /></label>
+
+        <br /><br />
+        <span class="spn_lbl">Horario</span>
+        <label for="CttextHorarioDoctEdi"
+          ><input
+            type="text"
+            name="CtextHorarioDoctEdi"
+            id="CtextHorarioDoctEdi"
+            value="{{ doce.horario_doc }}"
+            [(ngModel)]="doce.horario_doc"
+            [value]="doce.horario_doc"
+            formControlName="textHorarioDoctEdi"
+        /></label>
+
+        <br /><br />
+        <span class="spn_lbl">Tipo de Documento : </span>
+        <label for="textTipDocDoctEdi">
+          <select
+            name="CtextTipDocDoctEdi"
+            id="CtextTipDocDoctEdi"
+            formControlName="textTipDocDoctEdi"
+            (click)="consultaCatalogoDocTotales()"
+          >
+            <option value="value1">Tipo de Documento</option>
+            <option *ngFor="let pae of CataDocUniT" [value]="pae.id_catalogo_universal">
+              {{ pae.nom_catalogo }}
+            </option>
+          </select>
+        </label>
+
+        <br /><br />
+        <span class="spn_lbl">Numero Documento</span>
+        <label for="CtextNumDocDoctEdi"
+          ><input
+            type="text"
+            name="CtextNumDocDoctEdi"
+            id="CtextNumDocDoctEdi"
+            value="{{ doce.num_doc_doc}}"
+            [(ngModel)]="doce.num_doc_doc"
+            [value]="doce.num_doc_doc"
+            formControlName="textNumDocDoctEdi"
+        /></label>
+        <br /><br />
+
+        <span class="spn_lbl">Preferencia Sexual : </span>
+        <label for="textTipSexDocEdi">
+          <select
+            name="CtextTipSexDocEdi"
+            id="CtextTipSexDocEdi"
+            formControlName="textTipSexDocEdi"
+            (click)="consultaCatalogoSexoTotales()"
+          >
+            <option value="value1">Preferencia Sexual</option>
+            <option *ngFor="let pae of CataSexoUniT" [value]="pae.id_catalogo_universal">
+              {{ pae.nom_catalogo }}
+            </option>
+          </select>
+        </label>
+        <br /><br />
+
+        <span class="spn_lbl">Tipo de Usuario : </span>
+        <label for="textTipUsuDocEdi">
+          <select
+            name="CtextTipUsuDocEdi"
+            id="CtextTipUsuDocEdi"
+            formControlName="textTipUsuDocEdi"
+            (click)="consultaCatalogoUsuarioTotales()"
+          >
+            <option value="value1">Tipo de Usuario</option>
+            <option *ngFor="let pae of CataUsuarioUniT" [value]="pae.id_catalogo_universal">
+              {{ pae.nom_catalogo }}
+            </option>
+          </select>
+        </label>
+        <br /><br />
+
+        <span class="spn_lbl">Tipo de Especialidad : </span>
+        <label for="textTipEspDocEdi">
+          <select
+            name="CtextTipEspDocEdi"
+            id="CtextTipEspDocEdi"
+            formControlName="textTipEspDocEdi"
+            (click)="consultaCatalogoEspecialidadTotales()"
+          >
+            <option value="value1">Tipo de Especialidad</option>
+            <option *ngFor="let pae of CataEspecialidadUniT" [value]="pae.id_catalogo_universal">
+              {{ pae.nom_catalogo }}
+            </option>
+          </select>
+        </label>
+        <br /><br />
+
+        <span class="spn_lbl">Login Correo</span>
+        <label for="CtextCorrLogDocEdi"
+          ><input
+            type="text"
+            name="CtextCorrLogDocEdi"
+            id="CtextCorrLogDocEdi"
+            value="{{ doce.login_correo_doc }}"
+            [(ngModel)]="doce.login_correo_doc"
+            [value]="doce.login_correo_doc"
+            formControlName="textCorrLogDocEdi"
+        /></label>
+        <br /><br />
+        <span class="spn_lbl">Contraseña</span>
+        <label for="CtextContraLogDocEdi"
+          ><input
+            type="text"
+            name="CtextContraLogDocEdi"
+            id="CtextContraLogDocEdi"
+            value="{{ doce.login_contrasena_doc }}"
+            [(ngModel)]="doce.login_contrasena_doc"
+            [value]="doce.login_contrasena_doc"
+            formControlName="textContraLogDocEdi"
+        /></label>
+        <br /><br />
+      </li>
+      <br /><br />
+
+      <button (click)="ActualizarDoctor()">Actualizar Registro</button>
+
+      <br /><br />
+    </form>
+  </div>
+
+</body>

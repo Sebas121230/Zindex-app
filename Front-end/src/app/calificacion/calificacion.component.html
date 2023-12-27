@@ -1,0 +1,249 @@
+<body>
+    <div style="text-align: center">
+        <h1>{{ title }}</h1>
+        <img width="300" alt="Logo Proyecto" src="/assets/zindexlogo.jpg" />
+    </div>
+
+    <br /><br />
+
+    <div class="dir">
+        <h3><a routerLink="/Inicio">Inicio</a></h3>
+    </div>
+
+    <br /><br />
+
+    <div class="listaContacto">
+        <h2>Todas las Calificaciones</h2>
+
+        <form (ngSubmit)="consultaCalifTotales(true)" [formGroup]="ListarCalifTotales">
+            <button type="submit" style="margin-right: 30px">
+                Listar todas las Calificaciones
+            </button>
+            <button (click)="LimpiarLista(false)" style="scroll-margin-left: 30px">
+                Limpiar todas las Calificaciones
+            </button>
+
+            <br /><br />
+
+            <div *ngIf="flag">
+
+                <h2>{{ tituloCalifUniLista }}</h2>
+
+                <table>
+                    <thead>
+                        <th>{{ tablacaliftotales[0] }}</th>
+                        <th>{{ tablacaliftotales[1] }}</th>
+                        <th>{{ tablacaliftotales[2] }}</th>
+                        <th>{{ tablacaliftotales[3] }}</th>
+                        <th>{{ tablacaliftotales[4] }}</th>
+                        <th>{{ tablacaliftotales[5] }}</th>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let pacu of CalifUniT">
+                            <th>{{ pacu.id_calificacion}}</th>
+                            <th>{{ pacu.num_calificacion }}</th>
+                            <th>{{ pacu.comen_calificacion }}</th>
+                            <th>{{ pacu.Nombre_Paciente }}</th>
+                            <th>{{ pacu.Nombre_Doctor}}</th>
+                            <th>{{ pacu.fecha_cita}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+
+    <br /><br />
+    <div class="listaCalifID">
+        <h2>Calificaciones Por ID</h2>
+        <form (ngSubmit)="consultaCalifID(CBCalifID.value.PerIDfiltro)" [formGroup]="CBCalifID">
+            <button type="submit" style="margin-right: 30px">
+                ID Calificacion
+                <select name="CPerIDfiltro" id="CPerIDfiltro" formControlName="PerIDfiltro"
+                    (click)="consultaCalifTotales(false)">
+                    <option value="value1">Calificaciones</option>
+                    <option *ngFor="let pae of CalifUniT" [value]="pae.id_calificacion">
+                        {{pae.Nombre_Paciente}} - {{ pae.num_calificacion }}
+                    </option>
+                </select>
+            </button>
+
+            <br /><br />
+
+            <h2>{{ tituloCalifUniListaID }}</h2>
+
+            <table>
+                <thead>
+                    <th>{{ tablacaliftotalesID[0] }}</th>
+                    <th>{{ tablacaliftotalesID[1] }}</th>
+                    <th>{{ tablacaliftotalesID[2] }}</th>
+                    <th>{{ tablacaliftotalesID[3] }}</th>
+                    <th>{{ tablacaliftotalesID[4] }}</th>
+                    <th>{{ tablacaliftotalesID[5] }}</th>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let pacudoc of CalifUniTID">
+                        <th>{{ pacudoc.id_calificacion }}</th>
+                        <th>{{ pacudoc.num_calificacion }}</th>
+                        <th>{{ pacudoc.comen_calificacion }}</th>
+                        <th>{{ pacudoc.Nombre_Paciente }}</th>
+                        <th>{{ pacudoc.Nombre_Doctor }}</th>
+                        <th>{{ pacudoc.fecha_cita }}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <br /><br />
+
+    <div class="listaCalifNum">
+        <h2>Numero de Calificacion</h2>
+        <form (ngSubmit)="consultaCalifNum(CBCalifNum.value.PerNumfiltro)" [formGroup]="CBCalifNum">
+            <button type="submit" style="margin-right: 30px">
+                Numero de Calificacion
+                <select class="dropdown" style="width: 150px" formControlName="PerNumfiltro">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+
+                </select>
+            </button>
+
+            <button (click)="LimpiarTablaNum()">Limpiar Tabla de Numero de Calificacion</button>
+
+            <br /><br />
+
+            <h2>{{ tituloCalifUniListaNum }}</h2>
+
+            <table>
+                <thead>
+                    <th>{{ tablacaliftotalesNum[0] }}</th>
+                    <th>{{ tablacaliftotalesNum[1] }}</th>
+                    <th>{{ tablacaliftotalesNum[2] }}</th>
+                    <th>{{ tablacaliftotalesNum[3] }}</th>
+                    <th>{{ tablacaliftotalesNum[4] }}</th>
+                    <th>{{ tablacaliftotalesNum[5] }}</th>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let califunum of CalifUniNum">
+                        <th>{{ califunum.id_calificacion }}</th>
+                        <th>{{ califunum.num_calificacion }}</th>
+                        <th>{{ califunum.comen_calificacion }}</th>
+                        <th>{{ califunum.Nombre_Paciente }}</th>
+                        <th>{{ califunum.Nombre_Doctor }}</th>
+                        <th>{{ califunum.fecha_cita }}</th>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+
+    <br /><br />
+
+    <div class="formuCrear">
+        <button (click)="mostrarForm()">Crear Calificacion</button>
+        <button (click)="ocultarForm()">Ocultar Calificacion</button>
+    </div>
+
+    <div class="creaPer" *ngIf="mostrarFormulario">
+        <h2>Registrar una Nueva Calificacion</h2>
+
+        <form (ngSubmit)="InsertCalif()" [formGroup]="CrearCalifU">
+            <!-- Los otros controles para la captura de los datos del Catalogo -->
+
+            <span class="spn_lbl">Numero de Calificacion: </span>
+            <label for="textnumcalif">
+                <input type="number" name="Ctextnumcalif" id="Ctextnumcalif" formControlName="textnumcalif" min="1"
+                    max="5" />
+            </label>
+
+            <br /><br />
+            <span class="spn_label">Comentarios: </span>
+            <label for="textcomencalif">
+                <input type="text" name="Ctextcomencalif" id="Ctextcomencalif" formControlName="textcomencalif" />
+            </label>
+
+            <br /><br />
+            <span class="spn_lbl">Cita : </span>
+            <label for="textidccita">
+                <select name="Ctextidcita" id="Ctextidcita" formControlName="textidcita"
+                    (click)="consultaCitasTotales()">
+                    <option value="value1">Citas</option>
+                    <option *ngFor="let paese of CitaUniT" [value]="paese.id_cita">
+                        {{ paese.Nombre_Paciente }} - {{paese.fecha_cita}}
+                    </option>
+                </select>
+            </label>
+
+            <br /><br />
+
+            <button type="submit">Nueva Calificacion</button>
+            <br /><br />
+        </form>
+    </div>
+
+    <div class="editCalif">
+        <h2>Modificar una Calificacion </h2>
+        <form (ngSubmit)="SelCalifEditar()" [formGroup]="ActCalifU">
+            <span class="spn_lbl">Calificacion a Editar</span>
+            <label>
+                <select class="dropdown2" formControlName="CBCalifEdi" (click)="consultaCalifTotales(false)">
+                    <option value="value1">Calificacion </option>
+                    <option *ngFor="let paese of CalifUniT" [value]="paese.id_calificacion">
+                        {{paese.Nombre_Paciente}} - {{ paese.num_calificacion }}
+                    </option>
+                </select>
+            </label>
+            <button type="submit" (click)="obtenerCalifSeleccionado(1)">
+                Buscar Calificacion a Editar
+            </button>
+
+            <h2>{{ titloCalifUniEditar }}</h2>
+
+            <li *ngFor="let pae of CalifUniEdi">
+
+                <span class="spn_lbl">Numero de Calificacion: </span>
+                <label for="CtextnumcalifEdi">
+                    <input type="number" name="CtextnumcalifEdi" id="CtextnumcalifEdi"
+                        value="{{ pae.num_calificacion }}" [(ngModel)]="pae.num_calificacion"
+                        [value]="pae.num_calificacion" formControlName="textnumcalifEdi" min="1" max="5" />
+                </label>
+                <br /><br />
+
+                <span class="spn_label">Comentarios: </span>
+                <label for="textcomencalifEdi">
+                    <input type="text" name="CtextcomencalifEdi" id="CtextcomencalifEdi"
+                        formControlName="textcomencalifEdi" value="{{ pae.comen_calificacion }}"
+                        [(ngModel)]="pae.comen_calificacion" [value]="pae.comen_calificacion" />
+                </label>
+                <br /><br />
+
+                <span class="spn_lbl">Cita: </span>
+                <label for="textidccitaEdi">
+                    <select name="CtextidcitaEdi" id="CtextidcitaEdi" formControlName="textidcitaEdi"
+                        (click)="consultaCitasTotales()">
+                        <option value="value1">Citas</option>
+                        <option *ngFor="let paese of CitaUniT" [value]="paese.id_cita">
+                            {{ paese.Nombre_Paciente }} - {{paese.fecha_cita}}
+                        </option>
+                    </select>
+                </label>
+
+                <br /><br />
+
+                <button (click)="ActualizarCalifU()">Actualizar Registro</button>
+
+                <br /><br />
+            </li>
+        </form>
+    </div>
+
+    <br /><br />
+
+</body>

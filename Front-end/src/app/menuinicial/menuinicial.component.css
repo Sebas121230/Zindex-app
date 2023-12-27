@@ -1,0 +1,29 @@
+/* Estilos personalizados para la página de citas médicas */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #fff; /* Establece el fondo en blanco */
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .jumbotron {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .btn-primary {
+    margin-top: 10px;
+  }
+  
+  img {
+    margin-top: 20px;
+  }
+  
